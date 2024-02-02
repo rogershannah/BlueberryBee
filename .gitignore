@@ -435,3 +435,6 @@ FodyWeavers.xsd
 build/
 *.vcxproj
 *.filters
+build.py
+BlueberryBee.vcxproj
+BlueberryBee.vcxproj.filters

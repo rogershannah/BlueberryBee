@@ -28,10 +28,14 @@ public:
     void Render();
     // loop that runs forever
     void Loop();
+    // load shaders
+    void LoadShaders();
     // Get Pointer to Window
     GLFWwindow* GetGLFWWindow();
     // Helper Function to Query OpenGL information.
     void GetOpenGLVersionInfo();
+    // Generate any vertex buffers
+    void GenerateBuffers();
 
 private:
     // Screen dimension constants
@@ -41,6 +45,15 @@ private:
     GLFWwindow* m_window;
     // OpenGL context
     //GLFW_GLContext m_openGLContext;
+    // buffer ogjects
+    unsigned int VBO, VAO, EBO;
+    //vertex shader
+    unsigned int m_vertexShader;
+    //shader
+    unsigned int m_shaderProgram;
+
+
+    //helper functions
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
 };

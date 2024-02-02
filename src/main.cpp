@@ -13,6 +13,8 @@ int main()
     GLFWGraphicsProgram myGLFWGraphicsProgram(SCR_WIDTH, SCR_HEIGHT);
     // Print out some useful information
     //myGLFWGraphicsProgram.getOpenGLVersionInfo();
+    myGLFWGraphicsProgram.LoadShaders();
+    myGLFWGraphicsProgram.GenerateBuffers();
     // Run our program forever
     myGLFWGraphicsProgram.Loop();
     // When our program ends, it will exit scope, the
