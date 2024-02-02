@@ -14,20 +14,20 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
     glfwInit();
 
     //Create window 
-    GLFWwindow* window = glfwCreateWindow(w, h, "GL", NULL, NULL);
+    m_window = glfwCreateWindow(w, h, "GL", NULL, NULL);
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    if (window == NULL)
+    if (m_window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         //return -1;
         success = false;
     }
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(m_window);
 
     //init GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -38,22 +38,7 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
         success = false;
     }
 
-    //render loop
-    while (!glfwWindowShouldClose(window))
-    {
-        // input
-        processInput(window);
-
-        // render
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-    std::cout << "hit terminate" << std::endl;
-    glfwTerminate();
+    
 
 }
 
@@ -91,6 +76,7 @@ void GLFWGraphicsProgram::Loop()
         glfwSwapBuffers(m_window);
         glfwPollEvents();
     }
+    std::cout << "hit terminate" << std::endl;
 }
 
 GLFWwindow* GLFWGraphicsProgram::GetGLFWWindow()

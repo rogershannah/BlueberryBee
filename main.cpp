@@ -14,7 +14,7 @@ int main()
     // Print out some useful information
     //myGLFWGraphicsProgram.getOpenGLVersionInfo();
     // Run our program forever
-    //myGLFWGraphicsProgram.Loop();
+    myGLFWGraphicsProgram.Loop();
     // When our program ends, it will exit scope, the
     // destructor will then be called and clean up the program.
     return 0;
