@@ -46,7 +46,7 @@ private:
     // OpenGL context
     //GLFW_GLContext m_openGLContext;
     // buffer ogjects
-    unsigned int VBO, VAO, EBO;
+    unsigned int VBOs[2], VAOs[2];
     //vertex shader
     unsigned int m_vertexShader;
     //shader
