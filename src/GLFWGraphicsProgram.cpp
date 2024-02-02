@@ -51,11 +51,6 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
         //return -1;
         success = false;
     }
-
-    
-    
-    
-
 }
 
 GLFWGraphicsProgram::~GLFWGraphicsProgram()
@@ -84,6 +79,17 @@ void GLFWGraphicsProgram::Update()
 
 void GLFWGraphicsProgram::Render()
 {
+    // render
+      // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // draw our first triangle
+    glUseProgram(m_shaderProgram);
+    glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    // glBindVertexArray(0); // no need to unbind it every time 
 }
 
 void GLFWGraphicsProgram::Loop()
@@ -94,18 +100,8 @@ void GLFWGraphicsProgram::Loop()
         // input
         // -----
         processInput(m_window);
-
-        // render
-        // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // draw our first triangle
-        glUseProgram(m_shaderProgram);
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        //glDrawArrays(GL_TRIANGLES, 0, 6);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // glBindVertexArray(0); // no need to unbind it every time 
+        updateInput();
+        Render();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -221,4 +217,16 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+}
+
+void GLFWGraphicsProgram::updateInput()
+{
+    if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    else if (glfwGetKey(m_window, GLFW_KEY_F) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }   
+
+    
 }
