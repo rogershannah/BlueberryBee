@@ -81,8 +81,6 @@ bool GLFWGraphicsProgram::InitGL()
     //Success flag
     bool success = true;
 
-    // Setup geometry
-    GenerateBuffers();
 
     // Setup shaders
     std::string vertexShader = LoadShader("./shaders/vert.glsl");
@@ -90,8 +88,10 @@ bool GLFWGraphicsProgram::InitGL()
 
     shader = CreateShader(vertexShader, fragmentShader);
 
+    // Setup geometry
+    GenerateBuffers();
     // Use our shader
-    glUseProgram(shader);
+   // glUseProgram(shader);
 
     return success;
 }
@@ -103,8 +103,19 @@ void GLFWGraphicsProgram::Update()
 void GLFWGraphicsProgram::Render()
 {
     // render
+    //clear color
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    glUseProgram(shader);
+
+    // update the uniform color
+    float timeValue = glfwGetTime();
+    float greenValue = sin(timeValue) / 2.0f + 0.5f;
+    int vertexColorLocation = glGetUniformLocation(shader, "vertexColor");
+    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
+    //render triangle
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
@@ -168,9 +179,7 @@ void GLFWGraphicsProgram::GenerateBuffers()
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+
 }
 
 void GLFWGraphicsProgram::framebuffer_size_callback(GLFWwindow* window, int width, int height)
