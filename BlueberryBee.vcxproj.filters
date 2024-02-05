@@ -37,5 +37,8 @@
     <None Include="shaders\vert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\frag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

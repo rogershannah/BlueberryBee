@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <string>
 
 // The glad library helps setup OpenGL extensions.
 
@@ -29,7 +30,7 @@ public:
     // loop that runs forever
     void Loop();
     // load shaders
-    void LoadShaders();
+    std::string LoadShader(const std::string& fname);
     // Get Pointer to Window
     GLFWwindow* GetGLFWWindow();
     // Helper Function to Query OpenGL information.
@@ -46,18 +47,22 @@ private:
     // OpenGL context
     //GLFW_GLContext m_openGLContext;
     // buffer ogjects
-    unsigned int VBOs[2], VAOs[2];
+    unsigned int VBO, VAO;
     //vertex shader
     unsigned int m_vertexShader;
     //shader
-    unsigned int m_shaderProgramOrange;
-    unsigned int m_shaderProgramYellow;
+    unsigned int shader; //one for now
 
 
     //helper functions
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
     void updateInput();
+
+    // Shader helpers
+    unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
+    unsigned int CompileShader(unsigned int type, const std::string& source);
+    bool CheckLinkStatus(GLuint programID);
 };
 
 #endif
