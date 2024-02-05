@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
+#include "Shader.h"
+
 // The glad library helps setup OpenGL extensions.
 
 
@@ -51,7 +53,8 @@ private:
     //vertex shader
     unsigned int m_vertexShader;
     //shader
-    unsigned int shader; //one for now
+    //unsigned int shader; //one for now
+    Shader* m_shader;
 
 
     //helper functions
@@ -60,8 +63,8 @@ private:
     void updateInput();
 
     // Shader helpers
-    unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
-    unsigned int CompileShader(unsigned int type, const std::string& source);
+    //unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
+    //unsigned int CompileShader(unsigned int type, const std::string& source);
     bool CheckLinkStatus(GLuint programID);
 };
 

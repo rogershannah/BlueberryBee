@@ -136,9 +136,11 @@
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c" />
     <ClCompile Include="src\GLFWGraphicsProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h" />
+    <ClInclude Include="include\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />
