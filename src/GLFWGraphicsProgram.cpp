@@ -108,7 +108,7 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    m_shader->use();
+    m_shader->Use();
 
     //render triangle
     glBindVertexArray(VAO);
@@ -202,88 +202,7 @@ void GLFWGraphicsProgram::updateInput()
 
     
 }
-
-//unsigned int GLFWGraphicsProgram::CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource)
-//{
-//    //create program
-//    unsigned int program = glCreateProgram();
-//
-//    // compile shaders
-//    unsigned int vertShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
-//    unsigned int fragShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-//
-//    // link program
-//    //attach shaders
-//    glAttachShader(program, vertShader);
-//    glAttachShader(program, fragShader);
-//    //link
-//    glLinkProgram(program);
-//    glValidateProgram(program);
-//    // statch and delete
-//    glDetachShader(program, vertShader);
-//    glDetachShader(program, fragShader);
-//
-//    glDeleteShader(vertShader);
-//    glDeleteShader(fragShader);
-//
-//    if (!CheckLinkStatus(program))
-//    {
-//        std::cout << "ERROR, shader did not link!\n";
-//    }
-//
-//    return program;
-//}
-//
-//unsigned int GLFWGraphicsProgram::CompileShader(unsigned int type, const std::string& source)
-//{
-//    // Compile our shaders
-//    // id is the type of shader (Vertex, fragment, etc.)
-//    unsigned int id;
-//    int result; //result of compilation
-//
-//    if (type == GL_VERTEX_SHADER)
-//    {
-//        id = glCreateShader(GL_VERTEX_SHADER);
-//    }
-//    else if (type == GL_FRAGMENT_SHADER)
-//    {
-//        id = glCreateShader(GL_FRAGMENT_SHADER);
-//    }
-//    const char* src = source.c_str();
-//    // The source of our shader
-//    glShaderSource(id, 1, &src, nullptr);
-//    // Now compile our shader
-//    glCompileShader(id);
-//
-//    // check for shader compile errors
-//    int success;
-//    glGetShaderiv(m_vertexShader, GL_COMPILE_STATUS, &success);
-//    if (!success)
-//    {
-//        int length;
-//        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-//        char infoLog[512];
-//        glGetShaderInfoLog(id, length, &length, infoLog);
-//        if (type == GL_VERTEX_SHADER)
-//        {
-//            std::cout << "ERROR: GL_VERTEX_SHADER compilation failed!\n"
-//                << infoLog << "\n";
-//        }
-//        else if (type == GL_FRAGMENT_SHADER)
-//        {
-//            std::cout << "ERROR: GL_FRAGMENT_SHADER compilation failed!\n"
-//                << infoLog << "\n";
-//        }
-//        // Reclaim our memory
-//        delete[] infoLog;
-//        // Delete our broken shader
-//        glDeleteShader(id);
-//        return 0;
-//    }
-//    return id;
-//}
-
-bool GLFWGraphicsProgram::CheckLinkStatus(GLuint programID)
+bool GLFWGraphicsProgram::checkLinkStatus(GLuint programID)
 {
     int result;
 

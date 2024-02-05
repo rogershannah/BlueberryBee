@@ -65,7 +65,7 @@ private:
     // Shader helpers
     //unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
     //unsigned int CompileShader(unsigned int type, const std::string& source);
-    bool CheckLinkStatus(GLuint programID);
+    bool checkLinkStatus(GLuint programID);
 };
 
 #endif
