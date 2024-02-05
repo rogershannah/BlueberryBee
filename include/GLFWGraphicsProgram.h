@@ -50,7 +50,8 @@ private:
     //vertex shader
     unsigned int m_vertexShader;
     //shader
-    unsigned int m_shaderProgram;
+    unsigned int m_shaderProgramOrange;
+    unsigned int m_shaderProgramYellow;
 
 
     //helper functions

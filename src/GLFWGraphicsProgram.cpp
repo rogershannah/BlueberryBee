@@ -12,13 +12,19 @@ const char* vertexShaderSource = "#version 330 core\n"
 "{\n"
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "}\0";
-const char* fragmentShaderSource = "#version 330 core\n"
+const char* fragmentShaderSource1 = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "void main()\n"
 "{\n"
 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 "}\n\0";
 
+const char* fragmentShaderSource2 = "#version 330 core\n"
+"out vec4 FragColor;\n"
+"void main()\n"
+"{\n"
+"   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+"}\n\0";
 
 
 GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
@@ -60,7 +66,8 @@ GLFWGraphicsProgram::~GLFWGraphicsProgram()
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(2, VAOs);
     glDeleteBuffers(2, VBOs);
-    glDeleteProgram(m_shaderProgram);
+    glDeleteProgram(m_shaderProgramYellow);
+    glDeleteProgram(m_shaderProgramOrange);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -82,11 +89,13 @@ void GLFWGraphicsProgram::Render()
       // ------
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(m_shaderProgramOrange); //apply orange to first triangle
 
     // draw first triangle using the data from the first VAO
     glBindVertexArray(VAOs[0]);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     // then we draw the second triangle using the data from the second VAO
+    glUseProgram(m_shaderProgramYellow); //apply yellow to second triangle
     glBindVertexArray(VAOs[1]);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
@@ -127,31 +136,54 @@ void GLFWGraphicsProgram::LoadShaders()
         std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
-    // fragment shader
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
+    // fragment shader 1
+    unsigned int fragmentShaderOrange = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShaderOrange, 1, &fragmentShaderSource1, NULL);
+    glCompileShader(fragmentShaderOrange);
     // check for shader compile errors
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(fragmentShaderOrange, GL_COMPILE_STATUS, &success);
     if (!success)
     {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        glGetShaderInfoLog(fragmentShaderOrange, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+    // fragment shader 2
+    unsigned int fragmentShaderYellow = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShaderYellow, 1, &fragmentShaderSource2, NULL);
+    glCompileShader(fragmentShaderYellow);
+    // check for shader compile errors
+    glGetShaderiv(fragmentShaderYellow, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShaderYellow, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
     // link shaders
-    m_shaderProgram = glCreateProgram();
-    glAttachShader(m_shaderProgram, m_vertexShader);
-    glAttachShader(m_shaderProgram, fragmentShader);
-    glLinkProgram(m_shaderProgram);
+    m_shaderProgramOrange = glCreateProgram();
+    glAttachShader(m_shaderProgramOrange, m_vertexShader);
+    glAttachShader(m_shaderProgramOrange, fragmentShaderOrange);
+    glLinkProgram(m_shaderProgramOrange);
     // check for linking errors
-    glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, &success);
+    glGetProgramiv(m_shaderProgramOrange, GL_LINK_STATUS, &success);
     if (!success) {
-        glGetProgramInfoLog(m_shaderProgram, 512, NULL, infoLog);
+        glGetProgramInfoLog(m_shaderProgramOrange, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+    // link shaders
+    m_shaderProgramYellow = glCreateProgram();
+    glAttachShader(m_shaderProgramYellow, m_vertexShader);
+    glAttachShader(m_shaderProgramYellow, fragmentShaderYellow);
+    glLinkProgram(m_shaderProgramYellow);
+    // check for linking errors
+    glGetProgramiv(m_shaderProgramYellow, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(m_shaderProgramYellow, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
     glDeleteShader(m_vertexShader);
-    glDeleteShader(fragmentShader);
+    glDeleteShader(fragmentShaderYellow);
+    glDeleteShader(fragmentShaderOrange);
 }
 
 GLFWwindow* GLFWGraphicsProgram::GetGLFWWindow()
