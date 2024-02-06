@@ -99,8 +99,10 @@ void GLFWGraphicsProgram::Update()
 {
     //load texture
     GLuint Texture = m_texture.LoadTexture("./assets/container.jpg");
+    GLuint Texture2 = m_texture2.LoadTexture("./assets/awesomeface.png");
     // Bind our texture in Texture Unit 0
     m_texture.Bind(0);
+    m_texture2.Bind(1);
 }
 
 void GLFWGraphicsProgram::Render()
@@ -111,10 +113,7 @@ void GLFWGraphicsProgram::Render()
     glClear(GL_COLOR_BUFFER_BIT);
 
     // bind Texture
-    glBindTexture(GL_TEXTURE_2D, m_texture.GetID());
-
-    // render container
-    m_shader->Use();
+    //glBindTexture(GL_TEXTURE_2D, m_texture.GetID());
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -122,6 +121,10 @@ void GLFWGraphicsProgram::Render()
 
 void GLFWGraphicsProgram::Loop()
 {
+    m_shader->Use();
+    glUniform1i(glGetUniformLocation(m_shader->ID, "texture"), 0); // set it manually
+    glUniform1i(glGetUniformLocation(m_shader->ID, "texture2"), 1); // set it manually
+
     //render loop
     while (!glfwWindowShouldClose(m_window))
     {

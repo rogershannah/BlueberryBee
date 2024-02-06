@@ -40,8 +40,6 @@ public:
     void GetOpenGLVersionInfo();
     // Generate any vertex buffers
     void GenerateBuffers();
-    //void CreateAndLoadTexture();
-    void Dummy();
 
 private:
     // Screen dimension constants
@@ -65,6 +63,7 @@ private:
     Shader* m_shader;
     //texture
     Texture m_texture;
+    Texture m_texture2;
 
 
     //helper functions
