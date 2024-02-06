@@ -6,43 +6,52 @@
 #include <fstream>
 
 float vertices[] = {
-    // positions         // colors
-     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
-     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
+    // positions          // colors           // texture coords
+     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+};
+unsigned int indices[] = {
+      0, 1, 3, // first triangle
+      1, 2, 3  // second triangle
 };
 
-
-GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
+GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_screenHeight(h)
 { 
     bool success = true;
-    //init window
+
+    // glfw: initialize and configure
+   // ------------------------------
     glfwInit();
-
-    //Create window 
-    m_window = glfwCreateWindow(w, h, "GL", NULL, NULL);
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
+    // glfw window creation
+    // --------------------
+    m_window = glfwCreateWindow(m_screenWidth, m_screenHeight, "LearnOpenGL", NULL, NULL);
     if (m_window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        //return -1;
         success = false;
     }
     glfwMakeContextCurrent(m_window);
+    // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    //init GLAD
+     // glad: load all OpenGL function pointers
+     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
-
-        //return -1;
         success = false;
     }
+    
 
     //Initialize OpenGL
     if (!InitGL())
@@ -56,10 +65,6 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h)
     {
         std::cout << "Failed to initialize!\n";
     }
-    else
-    {
-        std::cout << "No SDL, GLAD, or OpenGL, errors Detected\n\n";
-    }
 }
 
 GLFWGraphicsProgram::~GLFWGraphicsProgram()
@@ -69,7 +74,7 @@ GLFWGraphicsProgram::~GLFWGraphicsProgram()
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    //glDeleteProgram(shader);
+    glDeleteBuffers(1, &EBO);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -81,38 +86,38 @@ bool GLFWGraphicsProgram::InitGL()
     //Success flag
     bool success = true;
 
-
-    // Setup shaders
-    std::string vertexShader = LoadShader("./shaders/vert.glsl");
-    std::string fragmentShader = LoadShader("./shaders/frag.glsl");
-
-    //shader = CreateShader(vertexShader, fragmentShader);
-    m_shader = new Shader(vertexShader.c_str(), fragmentShader.c_str());
+    m_shader = new Shader("./shaders/vert.glsl", "./shaders/frag.glsl");
 
     // Setup geometry
     GenerateBuffers();
-    // Use our shader
-   // glUseProgram(shader);
+
 
     return success;
 }
 
 void GLFWGraphicsProgram::Update()
 {
+    //load texture
+    GLuint Texture = m_texture.LoadTexture("./assets/container.jpg");
+    // Bind our texture in Texture Unit 0
+    m_texture.Bind(0);
 }
 
 void GLFWGraphicsProgram::Render()
 {
     // render
-    //clear color
+    // ------
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    m_shader->Use();
+    // bind Texture
+    glBindTexture(GL_TEXTURE_2D, m_texture.GetID());
 
-    //render triangle
+    // render container
+    m_shader->Use();
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
 }
 
 void GLFWGraphicsProgram::Loop()
@@ -124,6 +129,7 @@ void GLFWGraphicsProgram::Loop()
         // -----
         processInput(m_window);
         updateInput();
+        Update();
         Render();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -133,24 +139,6 @@ void GLFWGraphicsProgram::Loop()
     }
 }
 
-std::string GLFWGraphicsProgram::LoadShader(const std::string& fname)
-{
-    std::string result;
-    std::string line;
-    std::ifstream shaderFile(fname.c_str());
-
-    if (shaderFile.is_open())
-    {
-        while (getline(shaderFile, line))
-        {
-            result += line + '\n';
-        }
-    }
-    // Close file
-    shaderFile.close();
-    return result;
-
-}
 
 GLFWwindow* GLFWGraphicsProgram::GetGLFWWindow()
 {
@@ -163,20 +151,28 @@ void GLFWGraphicsProgram::GetOpenGLVersionInfo()
 
 void GLFWGraphicsProgram::GenerateBuffers()
 {
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    glGenBuffers(1, &EBO);
+
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    // texture coord attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
 }
 

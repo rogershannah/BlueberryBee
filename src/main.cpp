@@ -3,12 +3,16 @@
 
 #include "GLFWGraphicsProgram.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 // settings
 const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 int main()
 {
+    std::cout << "testing" << std::endl;
     // Create an instance of an object for a GLFWGraphicsProgram
     GLFWGraphicsProgram myGLFWGraphicsProgram(SCR_WIDTH, SCR_HEIGHT);
     // Print out some useful information

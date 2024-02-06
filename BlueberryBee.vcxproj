@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c" />
+    <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="src\GLFWGraphicsProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Shader.cpp" />
@@ -141,10 +142,16 @@
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h" />
     <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />
     <None Include="shaders\vert.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\container.jpg" />
+    <Image Include="assets\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

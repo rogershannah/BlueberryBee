@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{257ce50d-4904-4a8c-925b-b495df7a85b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{2caf8f2c-223c-4fe7-bcf9-79a4cda86a53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c">
@@ -30,12 +33,21 @@
     <ClCompile Include="src\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -46,5 +58,13 @@
     <None Include="shaders\frag.glsl">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\container.jpg">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\wall.jpg">
+      <Filter>assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>
