@@ -109,14 +109,21 @@ void GLFWGraphicsProgram::Update()
     m_texture2.Bind(1);
 
     // create transformations
-    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-    transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4 view = glm::mat4(1.0f);
+    // note that we're translating the scene in the reverse direction of where we want to move
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    glm::mat4 projection = glm::mat4(1.0f);;
+    projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
     // get matrix's uniform location and set matrix
     m_shader->Use();
-    unsigned int transformLoc = glGetUniformLocation(m_shader->ID, "transform");
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+    int modelLoc = glGetUniformLocation(m_shader->ID, "model");
+    unsigned int viewLoc = glGetUniformLocation(m_shader->ID, "view");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+    m_shader->setMat4("projection", projection, true);
 }
 
 void GLFWGraphicsProgram::Render()
@@ -130,15 +137,6 @@ void GLFWGraphicsProgram::Render()
     //glBindTexture(GL_TEXTURE_2D, m_texture.GetID());
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    // second transformation
-        // ---------------------
-    glm::mat4  transform = glm::mat4(1.0f); // reset it to identity matrix
-    transform = glm::translate(transform, glm::vec3(-0.5f, 0.5f, 0.0f));
-    float scaleAmount = static_cast<float>(sin(glfwGetTime()));
-    transform = glm::scale(transform, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
-    unsigned int transformLoc = glGetUniformLocation(m_shader->ID, "transform");
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, &transform[0][0]); // this time take the matrix value array's first element as its memory pointer value
 
     // now with the uniform matrix being replaced with new transformations, draw it again.
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
