@@ -110,7 +110,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c" />
     <ClCompile Include="include\Texture.cpp" />
+    <ClCompile Include="include\Transform.cpp" />
     <ClCompile Include="src\GLFWGraphicsProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Shader.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />

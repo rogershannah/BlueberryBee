@@ -7,7 +7,7 @@
 #include "stb_image.h"
 
 // settings
-const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_WIDTH = 720;
 const unsigned int SCR_HEIGHT = 720;
 
 int main()

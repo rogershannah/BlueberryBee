@@ -5,6 +5,10 @@
 #include <sstream>
 #include <fstream>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 float vertices[] = {
     // positions          // colors           // texture coords
      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
@@ -103,6 +107,16 @@ void GLFWGraphicsProgram::Update()
     // Bind our texture in Texture Unit 0
     m_texture.Bind(0);
     m_texture2.Bind(1);
+
+    // create transformations
+    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
+    transform = glm::rotate(transform, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+    // get matrix's uniform location and set matrix
+    m_shader->Use();
+    unsigned int transformLoc = glGetUniformLocation(m_shader->ID, "transform");
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 }
 
 void GLFWGraphicsProgram::Render()
