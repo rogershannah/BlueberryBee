@@ -67,6 +67,10 @@ glm::vec3 cubePositions[] = {
     glm::vec3(-1.3f,  1.0f, -1.5f)
 };
 
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
 GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_screenHeight(h)
 { 
     bool success = true;
@@ -203,7 +207,6 @@ void GLFWGraphicsProgram::Loop()
         // input
         // -----
         processInput(m_window);
-        updateInput();
         Render();
         Update();
 
@@ -251,19 +254,24 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-}
-
-void GLFWGraphicsProgram::updateInput()
-{
-    if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS) {
+    if (glfwGetKey(m_window, GLFW_KEY_1) == GLFW_PRESS) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+    if (glfwGetKey(m_window, GLFW_KEY_2) == GLFW_PRESS) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
-    else if (glfwGetKey(m_window, GLFW_KEY_F) == GLFW_PRESS) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    }   
 
-    
+    const float cameraSpeed = 0.05f; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
+
 void GLFWGraphicsProgram::createTransformations()
 {
     // camera/view transformation
@@ -271,7 +279,7 @@ void GLFWGraphicsProgram::createTransformations()
     float radius = 10.0f;
     float camX = static_cast<float>(sin(glfwGetTime()) * radius);
     float camZ = static_cast<float>(cos(glfwGetTime()) * radius);
-    view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     m_shader->setMat4("view", view, true);
 }
 

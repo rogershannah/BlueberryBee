@@ -71,7 +71,6 @@ private:
     //helper functions
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
-    void updateInput();
     void createTransformations();
     void createTextures();
 
