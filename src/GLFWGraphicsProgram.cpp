@@ -92,7 +92,7 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_scr
         success = false;
     }
     glfwMakeContextCurrent(m_window);
-    // glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 
      // glad: load all OpenGL function pointers
      // ---------------------------------------
@@ -170,7 +170,7 @@ void GLFWGraphicsProgram::Render()
 
     createTransformations();
 
-    // render box45
+    // render boxes
     glBindVertexArray(VAO);
     glBindVertexArray(VAO);
     for (unsigned int i = 0; i < 10; i++)
@@ -192,6 +192,10 @@ void GLFWGraphicsProgram::Loop()
     m_shader->Use();
     m_shader->SetInt("texture1", 0);
     m_shader->SetInt("texture2", 1);
+    // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
+    // -----------------------------------------------------------------------------------------------------------
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
+    m_shader->setMat4("projection", projection, true);
 
     //render loop
     while (!glfwWindowShouldClose(m_window))
@@ -262,21 +266,13 @@ void GLFWGraphicsProgram::updateInput()
 }
 void GLFWGraphicsProgram::createTransformations()
 {
-    // create transformations
-    glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    projection = glm::perspective(glm::radians(45.0f), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
-    // retrieve the matrix uniform locations
-    unsigned int modelLoc = glGetUniformLocation(m_shader->ID, "model");
-    unsigned int viewLoc = glGetUniformLocation(m_shader->ID, "view");
-    // pass them to the shaders (3 different ways)
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-    // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-    m_shader->setMat4("projection", projection, true);
+    // camera/view transformation
+    glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    float radius = 10.0f;
+    float camX = static_cast<float>(sin(glfwGetTime()) * radius);
+    float camZ = static_cast<float>(cos(glfwGetTime()) * radius);
+    view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    m_shader->setMat4("view", view, true);
 }
 
 void GLFWGraphicsProgram::createTextures()
