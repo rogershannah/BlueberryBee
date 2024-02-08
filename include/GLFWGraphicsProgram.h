@@ -41,6 +41,8 @@ public:
     // Generate any vertex buffers
     void GenerateBuffers();
 
+
+
 private:
     // Screen dimension constants
     int m_screenHeight;
@@ -70,6 +72,8 @@ private:
     void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
     void updateInput();
+    void createTransformations();
+    void createTextures();
 
     // Shader helpers
     //unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
