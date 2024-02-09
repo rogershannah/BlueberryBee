@@ -213,10 +213,6 @@ void GLFWGraphicsProgram::Loop()
     m_shader->Use();
     m_shader->SetInt("texture1", 0);
     m_shader->SetInt("texture2", 1);
-    // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
-    // -----------------------------------------------------------------------------------------------------------
-    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
-    m_shader->setMat4("projection", projection, true);
 
     //render loop
     while (!glfwWindowShouldClose(m_window))
@@ -225,6 +221,11 @@ void GLFWGraphicsProgram::Loop()
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
+        // -----------------------------------------------------------------------------------------------------------
+        glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
+        m_shader->setMat4("projection", projection, true);
 
         // input
         // -----
@@ -354,6 +355,7 @@ void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, doub
 
 void GLFWGraphicsProgram::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
+
     fov -= (float)yoffset;
     if (fov < 1.0f)
         fov = 1.0f;
