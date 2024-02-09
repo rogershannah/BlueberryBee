@@ -136,11 +136,13 @@
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c" />
     <ClCompile Include="include\Texture.cpp" />
     <ClCompile Include="include\Transform.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\GLFWGraphicsProgram.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\GLFWGraphicsProgram.h" />
     <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />

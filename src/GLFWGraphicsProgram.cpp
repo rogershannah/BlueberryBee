@@ -74,8 +74,8 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 bool firstMouse = true;
 float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
 float pitch = 0.0f;
-float lastX = 800.0f / 2.0;
-float lastY = 600.0 / 2.0;
+float lastX; 
+float lastY; 
 float fov = 45.0f;
 
 float deltaTime = 0.0f;	// Time between current frame and last frame
@@ -160,6 +160,12 @@ bool GLFWGraphicsProgram::InitGL()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+
+    //create camera
+    m_camera.InitCamera(glm::vec3(0.0f, 0.0f, 3.0f));
+    lastX = m_screenWidth / 2.0f;
+    lastY = m_screenHeight / 2.0f;
+
     //build and compile shader
     m_shader = new Shader("./shaders/vert.glsl", "./shaders/frag.glsl");
 
@@ -227,6 +233,10 @@ void GLFWGraphicsProgram::Loop()
         glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
         m_shader->setMat4("projection", projection, true);
 
+        // camera/view transformation
+        glm::mat4 view = m_camera.GetViewMatrix();
+        m_shader->setMat4("view", view, true);
+
         // input
         // -----
         processInput(m_window);
@@ -287,13 +297,13 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
 
     float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
+        m_camera.ProcessKeyboard(FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
+        m_camera.ProcessKeyboard(BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        m_camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        m_camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
 void GLFWGraphicsProgram::createTransformations()
@@ -333,34 +343,12 @@ void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, doub
     lastX = xpos;
     lastY = ypos;
 
-    float sensitivity = 0.1f; // change this value to your liking
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw += xoffset;
-    pitch += yoffset;
-
-    // make sure that when pitch is out of bounds, screen doesn't get flipped
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
-
-    glm::vec3 front;
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
+   //m_camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void GLFWGraphicsProgram::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-
-    fov -= (float)yoffset;
-    if (fov < 1.0f)
-        fov = 1.0f;
-    if (fov > 45.0f)
-        fov = 45.0f;
+    //m_camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 bool GLFWGraphicsProgram::checkLinkStatus(GLuint programID)
