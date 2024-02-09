@@ -69,10 +69,11 @@ private:
 
 
     //helper functions
-    void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
     void createTransformations();
     void createTextures();
+    static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 
     // Shader helpers
     //unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);
