@@ -12,7 +12,7 @@ const unsigned int SCR_HEIGHT = 720;
 
 int main()
 {
-    std::cout << "testing" << std::endl;
+    std::cout << "starting BlueberryBee" << std::endl;
     // Create an instance of an object for a GLFWGraphicsProgram
     GLFWGraphicsProgram myGLFWGraphicsProgram(SCR_WIDTH, SCR_HEIGHT);
     // Print out some useful information

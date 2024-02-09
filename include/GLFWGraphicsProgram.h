@@ -74,6 +74,7 @@ private:
     void createTransformations();
     void createTextures();
     static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+    static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
     // Shader helpers
     //unsigned int CreateShader(const std::string& vertexShaderSource, const std::string& fragmentShaderSource);

@@ -106,9 +106,13 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_scr
         success = false;
     }
     glfwMakeContextCurrent(m_window);
+
+    //callbacks
     glfwSetWindowUserPointer(m_window, reinterpret_cast<void*>(this));
-    //glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(m_window, mouse_callback);
+    glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+    glfwSetCursorPosCallback(m_window, mouse_callback); 
+    glfwSetScrollCallback(m_window, scroll_callback);
+
     // tell GLFW to capture our mouse
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
      // glad: load all OpenGL function pointers
@@ -211,7 +215,7 @@ void GLFWGraphicsProgram::Loop()
     m_shader->SetInt("texture2", 1);
     // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
     // -----------------------------------------------------------------------------------------------------------
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
     m_shader->setMat4("projection", projection, true);
 
     //render loop
@@ -346,6 +350,15 @@ void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, doub
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(front);
+}
+
+void GLFWGraphicsProgram::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    fov -= (float)yoffset;
+    if (fov < 1.0f)
+        fov = 1.0f;
+    if (fov > 45.0f)
+        fov = 45.0f;
 }
 
 bool GLFWGraphicsProgram::checkLinkStatus(GLuint programID)
