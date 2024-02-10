@@ -81,6 +81,9 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
+// Initial Field of View
+float initialFoV = 45.0f;
+
 GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_screenHeight(h)
 { 
     bool success = true;
@@ -110,8 +113,6 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_scr
     //callbacks
     glfwSetWindowUserPointer(m_window, reinterpret_cast<void*>(this));
     glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(m_window, mouse_callback); 
-    glfwSetScrollCallback(m_window, scroll_callback);
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -228,15 +229,6 @@ void GLFWGraphicsProgram::Loop()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
-        // -----------------------------------------------------------------------------------------------------------
-        glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
-        m_shader->setMat4("projection", projection, true);
-
-        // camera/view transformation
-        glm::mat4 view = m_camera.GetViewMatrix();
-        m_shader->setMat4("view", view, true);
-
         // input
         // -----
         processInput(m_window);
@@ -285,16 +277,17 @@ void GLFWGraphicsProgram::framebuffer_size_callback(GLFWwindow* window, int widt
 
 void GLFWGraphicsProgram::processInput(GLFWwindow* window)
 {
-
+    //wireframe 
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-    if (glfwGetKey(m_window, GLFW_KEY_1) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
-    if (glfwGetKey(m_window, GLFW_KEY_2) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
+    //navigation via key input
     float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         m_camera.ProcessKeyboard(FORWARD, deltaTime);
@@ -304,16 +297,22 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
         m_camera.ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         m_camera.ProcessKeyboard(RIGHT, deltaTime);
+
+    //camera via mouse pos
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    mouse_callback(window, xpos, ypos);
 }
 
 void GLFWGraphicsProgram::createTransformations()
 {
+    // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
+       // -----------------------------------------------------------------------------------------------------------
+    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
+    m_shader->setMat4("projection", projection, true);
+
     // camera/view transformation
-    glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    float radius = 10.0f;
-    float camX = static_cast<float>(sin(glfwGetTime()) * radius);
-    float camZ = static_cast<float>(cos(glfwGetTime()) * radius);
-    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    glm::mat4 view = m_camera.GetViewMatrix();
     m_shader->setMat4("view", view, true);
 }
 
@@ -343,12 +342,12 @@ void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, doub
     lastX = xpos;
     lastY = ypos;
 
-   //m_camera.ProcessMouseMovement(xoffset, yoffset);
+   m_camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void GLFWGraphicsProgram::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    //m_camera.ProcessMouseScroll(static_cast<float>(yoffset));
+    m_camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 bool GLFWGraphicsProgram::checkLinkStatus(GLuint programID)
