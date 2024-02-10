@@ -9,7 +9,6 @@
 
 #include "Shader.h"
 #include "Texture.h"
-#include <Camera.h>
 
 // The glad library helps setup OpenGL extensions.
 
@@ -68,8 +67,6 @@ private:
     Texture m_texture;
     Texture m_texture2;
 
-    //camera
-    Camera m_camera;
 
 
     //helper functions

@@ -15,8 +15,17 @@ Camera::Camera()
 
 }
 
-Camera::~Camera()
+Camera& Camera::Instance()
 {
+    static Camera* instance = new Camera();
+    return *instance;
+}
+
+glm::mat4 Camera::GetWorldToViewmatrix() const
+{
+    return glm::lookAt(m_position,
+        m_position + m_front,
+        m_worldUp);
 }
 
 void Camera::InitCamera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)

@@ -31,22 +31,11 @@ const float ZOOM = 45.0f;
 class Camera
 {
 public:
-    // camera Attributes
-    glm::vec3 m_position;
-    glm::vec3 m_front;
-    glm::vec3 m_up;
-    glm::vec3 m_right;
-    glm::vec3 m_worldUp;
-    // euler Angles
-    float m_yaw;
-    float m_pitch;
-    // camera options
-    float m_movementSpeed;
-    float m_mouseSensitivity;
-    float m_zoom;
 
-    Camera();
-    ~Camera();
+    // Singleton pattern for having one single camera.
+    static Camera& Instance();
+    // Return a 'view' matrix with our camera transformation applied.
+    glm::mat4 GetWorldToViewmatrix() const;
 
     // constructor with vectors
     void InitCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
@@ -64,7 +53,25 @@ public:
     void ProcessMouseScroll(float yoffset);
 
 private:
+
+    Camera(); //Private constructor bc singleton, ensure only one is created
     // calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors();
+
+    //variables
+
+    // camera Attributes
+    glm::vec3 m_position;
+    glm::vec3 m_front;
+    glm::vec3 m_up;
+    glm::vec3 m_right;
+    glm::vec3 m_worldUp;
+    // euler Angles
+    float m_yaw;
+    float m_pitch;
+    // camera options
+    float m_movementSpeed;
+    float m_mouseSensitivity;
+    float m_zoom;
 };
 #endif

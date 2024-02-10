@@ -9,6 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Camera.h"
+
 float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -165,7 +167,7 @@ bool GLFWGraphicsProgram::InitGL()
     glEnable(GL_DEPTH_TEST);
 
     //create camera
-    m_camera.InitCamera(glm::vec3(0.0f, 0.0f, 3.0f));
+    Camera::Instance().InitCamera(glm::vec3(0.0f, 0.0f, 3.0f));
     lastX = m_screenWidth / 2.0f;
     lastY = m_screenHeight / 2.0f;
 
@@ -292,13 +294,13 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
     //navigation via key input
     float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        m_camera.ProcessKeyboard(FORWARD, deltaTime);
+        Camera::Instance().ProcessKeyboard(FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        m_camera.ProcessKeyboard(BACKWARD, deltaTime);
+        Camera::Instance().ProcessKeyboard(BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        m_camera.ProcessKeyboard(LEFT, deltaTime);
+        Camera::Instance().ProcessKeyboard(LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        m_camera.ProcessKeyboard(RIGHT, deltaTime);
+        Camera::Instance().ProcessKeyboard(RIGHT, deltaTime);
 
     //camera via mouse pos
     double xpos, ypos;
@@ -314,7 +316,7 @@ void GLFWGraphicsProgram::createTransformations()
     m_shader->setMat4("projection", projection, true);
 
     // camera/view transformation
-    glm::mat4 view = m_camera.GetViewMatrix();
+    glm::mat4 view = Camera::Instance().GetViewMatrix();
     m_shader->setMat4("view", view, true);
 }
 
@@ -344,12 +346,12 @@ void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, doub
     lastX = xpos;
     lastY = ypos;
 
-   m_camera.ProcessMouseMovement(xoffset, yoffset);
+   Camera::Instance().ProcessMouseMovement(xoffset, yoffset);
 }
 
 void GLFWGraphicsProgram::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    m_camera.ProcessMouseScroll(static_cast<float>(yoffset));
+    Camera::Instance().ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
 bool GLFWGraphicsProgram::checkLinkStatus(GLuint programID)
