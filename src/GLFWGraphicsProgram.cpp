@@ -113,6 +113,8 @@ GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_scr
     //callbacks
     glfwSetWindowUserPointer(m_window, reinterpret_cast<void*>(this));
     glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+    //glfwSetScrollCallback(m_window, scroll_callback);
+
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
