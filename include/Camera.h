@@ -50,6 +50,8 @@ public:
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset);
 
+    glm::vec3 GetPosition();
+
 private:
 
     Camera(); //Private constructor bc singleton, ensure only one is created

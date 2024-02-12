@@ -77,7 +77,7 @@ private:
     void processInput(GLFWwindow* window);
     void createTransformations();
     void createTextures();
-    void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+    void mouse_callback(double xposIn, double yposIn);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
     // Shader helpers

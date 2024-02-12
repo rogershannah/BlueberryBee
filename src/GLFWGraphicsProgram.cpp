@@ -9,7 +9,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Camera.h"
+#include "Camera.h" 
+// set up vertex data (and buffer(s)) and configure vertex attributes
+// ------------------------------------------------------------------
 float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
      0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -18,12 +20,12 @@ float vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
     -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
     -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
@@ -53,13 +55,8 @@ float vertices[] = {
     -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 };
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 bool firstMouse = true;
-float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch = 0.0f;
 float lastX; 
 float lastY; 
 float fov = 45.0f;
@@ -67,8 +64,7 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
-// Initial Field of View
-float initialFoV = 45.0f;
+
 
 //light source location
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -182,6 +178,9 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
 
+    // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
+    lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+    lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
     /*m_texture.Bind(0);
     m_texture2.Bind(1);*/
 
@@ -189,32 +188,19 @@ void GLFWGraphicsProgram::Render()
     m_shader->SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
     m_shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f); 
     m_shader->SetVec3("lightPos", lightPos);
+    m_shader->SetVec3("viewPos", Camera::Instance().GetPosition());
 
     createTransformations();
-
-    //// render boxes
-    //glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    //
-
-    //glBindVertexArray(lightVAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-    
-
 }
 
 void GLFWGraphicsProgram::Loop()
 {
-    /*createTextures();
-    m_shader->Use();
-    m_shader->SetInt("texture1", 0);
-    m_shader->SetInt("texture2", 1);*/
+   
 
     //render loop
     while (!glfwWindowShouldClose(m_window))
     {
-        //wibbly-wobbly timey-wimey logic
+                //time logic
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
@@ -266,8 +252,8 @@ void GLFWGraphicsProgram::GenerateBuffers()
 
     // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
     glGenVertexArrays(1, &lightVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindVertexArray(lightVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -304,7 +290,7 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
     //camera via mouse pos
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    mouse_callback(window, xpos, ypos);
+    mouse_callback(xpos, ypos);
 }
 
 void GLFWGraphicsProgram::createTransformations()
@@ -348,7 +334,7 @@ void GLFWGraphicsProgram::createTextures()
     // Bind our texture in Texture Unit 0
 }
 
-void GLFWGraphicsProgram::mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+void GLFWGraphicsProgram::mouse_callback(double xposIn, double yposIn)
 { 
     float xpos = static_cast<float>(xposIn);
     float ypos = static_cast<float>(yposIn);

@@ -94,6 +94,11 @@ void Camera::ProcessMouseScroll(float yoffset)
         m_zoom = 45.0f;
 }
 
+glm::vec3 Camera::GetPosition()
+{
+    return m_position;
+}
+
 void Camera::updateCameraVectors()
 {
     // calculate the new Front vector
