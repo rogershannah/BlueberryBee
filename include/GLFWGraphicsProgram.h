@@ -65,7 +65,7 @@ private:
     //shader
     //unsigned int shader; //one for now
     Shader* m_shader;
-    Shader* lightingShader;
+    Shader* lampShader;
     //texture
     Texture m_texture;
     Texture m_texture2;

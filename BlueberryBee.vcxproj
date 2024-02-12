@@ -150,10 +150,10 @@
     <ClInclude Include="include\Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\frag.glsl" />
     <None Include="shaders\lightingFrag.glsl" />
+    <None Include="shaders\lampFrag.glsl" />
+    <None Include="shaders\lampVert.glsl" />
     <None Include="shaders\lightingVert.glsl" />
-    <None Include="shaders\vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />
