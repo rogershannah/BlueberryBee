@@ -23,4 +23,3 @@ int main()
     // destructor will then be called and clean up the program.
     return 0;
 }
-

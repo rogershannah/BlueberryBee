@@ -58,11 +58,14 @@ private:
     //GLFW_GLContext m_openGLContext;
     // buffer ogjects
     unsigned int VBO, VAO, EBO;
+    //lighting VAO
+    unsigned int lightVAO;
     //vertex shader
     unsigned int m_vertexShader;
     //shader
     //unsigned int shader; //one for now
     Shader* m_shader;
+    Shader* lightingShader;
     //texture
     Texture m_texture;
     Texture m_texture2;

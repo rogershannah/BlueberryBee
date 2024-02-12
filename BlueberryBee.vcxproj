@@ -148,10 +148,11 @@
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Transform.h" />
-    <ClInclude Include="src\AbstractCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\lightingFrag.glsl" />
+    <None Include="shaders\lightingVert.glsl" />
     <None Include="shaders\vert.glsl" />
   </ItemGroup>
   <ItemGroup>
