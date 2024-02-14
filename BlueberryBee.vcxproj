@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,10 +150,14 @@
     <ClInclude Include="include\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\basicTextureFrag.glsl" />
+    <None Include="shaders\basicTextureVert.glsl" />
     <None Include="shaders\lightingFrag.glsl" />
     <None Include="shaders\lampFrag.glsl" />
     <None Include="shaders\lampVert.glsl" />
     <None Include="shaders\lightingVert.glsl" />
+    <None Include="shaders\materialFrag.glsl" />
+    <None Include="shaders\materialVert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />

@@ -156,7 +156,7 @@ bool GLFWGraphicsProgram::InitGL()
     lastY = m_screenHeight / 2.0f;
 
     //build and compile shader
-    m_shader = new Shader("./shaders/lightingVert.glsl", "./shaders/lightingFrag.glsl");
+    m_shader = new Shader("./shaders/materialVert.glsl", "./shaders/materialFrag.glsl");
     lampShader = new Shader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
 
     // Setup geometry
@@ -189,6 +189,10 @@ void GLFWGraphicsProgram::Render()
     m_shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f); 
     m_shader->SetVec3("lightPos", lightPos);
     m_shader->SetVec3("viewPos", Camera::Instance().GetPosition());
+    m_shader->SetVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+    m_shader->SetVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+    m_shader->SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    m_shader->SetFloat("material.shininess", 32.0f);
 
     createTransformations();
 }

@@ -76,6 +76,18 @@
     <None Include="shaders\lampVert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\materialVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\materialFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\basicTextureFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\basicTextureVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
