@@ -186,7 +186,9 @@ void GLFWGraphicsProgram::Render()
 
     m_shader->Use();
     m_shader->SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
-    m_shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f); 
+    m_shader->SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+    m_shader->SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f); // darken diffuse light a bit
+    m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
     m_shader->SetVec3("lightPos", lightPos);
     m_shader->SetVec3("viewPos", Camera::Instance().GetPosition());
     m_shader->SetVec3("material.ambient", 1.0f, 0.5f, 0.31f);
