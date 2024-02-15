@@ -31,7 +31,7 @@ public:
     void SetVec3(const std::string& name, float x, float y, float z);
     void SetVec4(const std::string& name, const glm::vec4& value) const;
 
-    void setMat4(const char* name, const glm::mat4& matrix, bool useShader);
+    void SetMat4(const char* name, const glm::mat4& matrix, bool useShader);
 private:
     void checkCompileErrors(unsigned int shader, std::string type);
 

@@ -13,47 +13,48 @@
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
 float vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    // positions          // normals           // texture coords
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
 bool firstMouse = true;
@@ -64,7 +65,7 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
-
+unsigned int diffuseMap;
 
 //light source location
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -174,49 +175,65 @@ void GLFWGraphicsProgram::Update()
 void GLFWGraphicsProgram::Render()
 {
     // render
-    // ------
+        // ------
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
-    lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-    lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
-    /*m_texture.Bind(0);
-    m_texture2.Bind(1);*/
-
-    //light color
-    glm::vec3 lightColor;
-    lightColor.x = sin(glfwGetTime() * 2.0f);
-    lightColor.y = sin(glfwGetTime() * 0.7f);
-    lightColor.z = sin(glfwGetTime() * 1.3f);
-
-    glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-    glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-
+    // be sure to activate shader when setting uniforms/drawing objects
     m_shader->Use();
-    m_shader->SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
-    m_shader->SetVec3("light.ambient", ambientColor);
-    m_shader->SetVec3("light.diffuse", diffuseColor); // darken diffuse light a bit
-    m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
     m_shader->SetVec3("light.position", lightPos);
     m_shader->SetVec3("viewPos", Camera::Instance().GetPosition());
-    m_shader->SetVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-    m_shader->SetVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-    m_shader->SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
-    m_shader->SetFloat("material.shininess", 32.0f);
 
-    createTransformations();
+    // light properties
+    m_shader->SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+    m_shader->SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+    m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+    // material properties
+    m_shader->SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    m_shader->SetFloat("material.shininess", 64.0f);
+
+    // view/projection transformations
+    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
+    glm::mat4 view = Camera::Instance().GetViewMatrix();
+    m_shader->SetMat4("projection", projection, true);
+    m_shader->SetMat4("view", view, true);
+
+    // world transformation
+    glm::mat4 model = glm::mat4(1.0f);
+    m_shader->SetMat4("model", model, true);
+
+    //// bind diffuse map
+    m_texture.Bind(0);
+
+    // render the cube
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+    // also draw the lamp object
+    lampShader->Use();
+    lampShader->SetMat4("projection", projection, true);
+    lampShader->SetMat4("view", view, true);
+    model = glm::mat4(1.0f);
+    model = glm::translate(model, lightPos);
+    model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+    lampShader->SetMat4("model", model, true);
+
+    glBindVertexArray(lightVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void GLFWGraphicsProgram::Loop()
 {
-   
+    //createTextures();
 
-    //render loop
+    ////render loop
     while (!glfwWindowShouldClose(m_window))
     {
-                //time logic
-        float currentFrame = glfwGetTime();
+        // per-frame time logic
+        // --------------------
+        float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
@@ -224,7 +241,8 @@ void GLFWGraphicsProgram::Loop()
         // -----
         processInput(m_window);
         Render();
-        Update();
+        //    Update(); //nothing yet
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -245,6 +263,7 @@ void GLFWGraphicsProgram::GetOpenGLVersionInfo()
 
 void GLFWGraphicsProgram::GenerateBuffers()
 {
+    //configure the cube's VAO (and VBO)
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
 
@@ -252,26 +271,26 @@ void GLFWGraphicsProgram::GenerateBuffers()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindVertexArray(VAO);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    //position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    //normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    //texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
-    //// texture coord attribute
-    //glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    //glEnableVertexAttribArray(1);
-
-    // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+    // configure light
     glGenVertexArrays(1, &lightVAO);
     glBindVertexArray(lightVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    createTextures();
 }
 
 void GLFWGraphicsProgram::framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -308,45 +327,22 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
     mouse_callback(xpos, ypos);
 }
 
-void GLFWGraphicsProgram::createTransformations()
-{
-    // pass projection matrix to shader (as projection matrix rarely changes there's no need to do this per frame)
-       // -----------------------------------------------------------------------------------------------------------
-    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
-    m_shader->setMat4("projection", projection, true);
-
-    // camera/view transformation
-    glm::mat4 view = Camera::Instance().GetViewMatrix();
-    m_shader->setMat4("view", view, true);
-
-    // world transformation
-    glm::mat4 model = glm::mat4(1.0f);
-    m_shader->setMat4("model", model, true);
-
-    // render the cube
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    // also draw the lamp object
-    lampShader->Use();
-    lampShader->setMat4("projection", projection, true);
-    lampShader->setMat4("view", view, true);
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, lightPos);
-    model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-    lampShader->setMat4("model", model, true);
-
-    glBindVertexArray(lightVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-}
+//void GLFWGraphicsProgram::createTransformations()
+//{
+//}
 
 void GLFWGraphicsProgram::createTextures()
 {
+    // load textures (we now use a utility function to keep the code more organized)
+    // -----------------------------------------------------------------------------
+    std::string path = "./assets/container2.png";
+    diffuseMap = m_texture.LoadTexture(path.c_str());
 
-    //load texture
-    GLuint Texture = m_texture.LoadTexture("./assets/container.jpg");
-    GLuint Texture2 = m_texture2.LoadTexture("./assets/awesomeface.png");
-    // Bind our texture in Texture Unit 0
+    // shader configuration
+    // --------------------
+    m_shader->Use();
+    m_shader->SetInt("material.diffuse", 0);
+
 }
 
 void GLFWGraphicsProgram::mouse_callback(double xposIn, double yposIn)

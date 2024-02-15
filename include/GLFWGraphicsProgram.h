@@ -75,7 +75,7 @@ private:
     //helper functions
     static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
     void processInput(GLFWwindow* window);
-    void createTransformations();
+    //void createTransformations();
     void createTextures();
     void mouse_callback(double xposIn, double yposIn);
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
