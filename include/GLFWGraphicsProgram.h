@@ -10,7 +10,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Cube.h" 
-#include "LightSource.h" 
+//#include "LightSource.h" 
 
 // The glad library helps setup OpenGL extensions.
 

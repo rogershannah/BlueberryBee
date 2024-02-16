@@ -21,7 +21,7 @@ public:
 
     void GenerateBuffers();
 
-    void Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view);
+    void Render(glm::vec3 vpos, glm::mat4 view);
 
 
     void Unbind();
@@ -33,6 +33,7 @@ public:
 private:
     Texture m_diffuse;
     Texture m_specular;
+    Texture m_emission;
     // buffer ogjects
     unsigned int VBO, VAO, EBO;
     Shader* m_shader;

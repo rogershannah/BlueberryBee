@@ -69,7 +69,7 @@ float lastFrame = 0.0f; // Time of last frame
 
 
 //light source location
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+//glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 GLFWGraphicsProgram::GLFWGraphicsProgram(int w, int h) : m_screenWidth(w), m_screenHeight(h)
 { 
@@ -157,10 +157,6 @@ bool GLFWGraphicsProgram::InitGL()
     lastX = m_screenWidth / 2.0f;
     lastY = m_screenHeight / 2.0f;
 
-    //build and compile shader
-    //m_shader = new Shader("./shaders/materialVert.glsl", "./shaders/materialFrag.glsl");
-    //lampShader = new Shader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
-
     container.LoadShader("./shaders/materialVert.glsl", "./shaders/materialFrag.glsl");
     light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
     container.isTextured = true;
@@ -184,57 +180,8 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //// be sure to activate shader when setting uniforms/drawing objects
-    //m_shader->Use();
-    //m_shader->SetVec3("light.position", lightPos);
-    //m_shader->SetVec3("viewPos", Camera::Instance().GetPosition());
-
-    //// light properties
-    //m_shader->SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-    //m_shader->SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-    //m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-    //// material properties
-    //m_shader->SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
-    //m_shader->SetFloat("material.shininess", 64.0f);
-
-    //// view/projection transformations
-    //glm::mat4 projection = glm::perspective(glm::radians(fov), (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f);
-    //glm::mat4 view = Camera::Instance().GetViewMatrix();
-    //m_shader->SetMat4("projection", projection, true);
-    //m_shader->SetMat4("view", view, true);
-
-    //// world transformation
-    //glm::mat4 model = glm::mat4(1.0f);
-    //m_shader->SetMat4("model", model, true);
-
-    ////// bind diffuse map
-    //m_texture.Bind(0);
-    //m_texture2.Bind(1);
-
-    //// render the cube
-    //glBindVertexArray(VAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-
-    container.Render(lightPos, Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
-    light.Render(lightPos, Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
-    // also draw the lamp object
-    //lampShader->Use();
-    //lampShader->SetMat4("projection", projection, true);
-    //lampShader->SetMat4("view", view, true);
-    //model = glm::mat4(1.0f);
-    //model = glm::translate(model, lightPos);
-    //model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-    //lampShader->SetMat4("model", model, true);
-
-    //glBindVertexArray(lightVAO);
-    //glDrawArrays(GL_TRIANGLES, 0, 36);
-    
-    /*
-    container.SetTransformations(Camera::Instance().GetPosition(), projection, view);
-    light.SetTransformations(Camera::Instance().GetPosition(), projection, view);
-    container.Render();
-    light.Render();*/
+    container.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
+    light.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
 }
 
 void GLFWGraphicsProgram::Loop()
@@ -314,6 +261,7 @@ void GLFWGraphicsProgram::GenerateBuffers()
     container.GenerateBuffers();
     container.LoadTexture("./assets/container2.png", 0);
     container.LoadTexture("./assets/container2_specular.png", 1);
+    container.LoadTexture("./assets/matrix.jpg", 1);
 
     light.GenerateBuffers();
 }

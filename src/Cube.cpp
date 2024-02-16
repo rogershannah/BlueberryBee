@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include <GLFW/glfw3.h>
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
    // ------------------------------------------------------------------
@@ -48,7 +49,7 @@ float verts[] = {
 };
 
 //light source location
-glm::vec3 light_position(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 Cube::Cube()
 {
@@ -74,6 +75,10 @@ void Cube::LoadTexture(std::string fileName, unsigned int slot)
 		m_specular.LoadTexture(fileName); 
         m_shader->Use();
         m_shader->SetInt("material.specular", 1);
+	case 2:
+		m_emission.LoadTexture(fileName);
+        m_shader->Use();
+        m_shader->SetInt("material.emission", 2);
 	}
     
 }
@@ -113,8 +118,18 @@ void Cube::GenerateBuffers()
     
 }
 
-void Cube::Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view)
+void Cube::Render(glm::vec3 vpos, glm::mat4 view)
 {
+    /*glm::vec3 lightColor;
+    lightColor.x = sin(glfwGetTime() * 2.0f);
+    lightColor.y = sin(glfwGetTime() * 0.7f);
+    lightColor.z = sin(glfwGetTime() * 1.3f);
+
+    glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+    glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);*/
+
+    lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+    lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
 
     // render
     //    // ------
@@ -127,12 +142,14 @@ void Cube::Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view)
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)720 / (float)720, 0.1f, 100.0f);
     if (isTextured) {
-        m_shader->SetVec3("light.position", lpos);
+        m_shader->SetVec3("light.position", lightPos);
         m_shader->SetVec3("viewPos", vpos);
 
         // light properties
         m_shader->SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         m_shader->SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        /*m_shader->SetVec3("light.ambient", ambientColor);
+        m_shader->SetVec3("light.diffuse", diffuseColor);*/
         m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
         // material properties
@@ -155,13 +172,13 @@ void Cube::Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view)
     }
     else {
         m_shader->Use();
+        m_shader->SetVec3("objectColor", 1.0f, 1.0f, 1.0f);
+        m_shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
         m_shader->SetMat4("projection", projection, true);
         m_shader->SetMat4("view", view, true);
-        model = glm::translate(model, lpos);
+        model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         m_shader->SetMat4("model", model, true);
-
-
     }
 
     // render the cube
