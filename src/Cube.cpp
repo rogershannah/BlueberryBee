@@ -84,7 +84,7 @@ void Cube::GenerateBuffers()
     if (isTextured) {
         //configure the cube's VAO (and VBO)
         glGenVertexArrays(1, &VAO);
-        glGenBuffers(1, &VBO);
+        //glGenBuffers(1, &VBO);
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
@@ -117,9 +117,9 @@ void Cube::Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view)
 {
 
     // render
-        // ------
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //    // ------
+    //glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // be sure to activate shader when setting uniforms/drawing objects
     m_shader->Use();
@@ -172,6 +172,11 @@ void Cube::Render(glm::vec3 lpos, glm::vec3 vpos, glm::mat4 view)
 
 void Cube::Unbind()
 {
+}
+
+void Cube::setVBO(unsigned int vbo)
+{
+    VBO = vbo;
 }
 
 

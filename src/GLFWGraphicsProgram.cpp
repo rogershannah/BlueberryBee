@@ -162,7 +162,7 @@ bool GLFWGraphicsProgram::InitGL()
     //lampShader = new Shader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
 
     container.LoadShader("./shaders/materialVert.glsl", "./shaders/materialFrag.glsl");
-    /*light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl*/
+    light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
     container.isTextured = true;
 
     // Setup geometry
@@ -181,8 +181,8 @@ void GLFWGraphicsProgram::Render()
 {
     //// render
     //    // ------
-    //glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //// be sure to activate shader when setting uniforms/drawing objects
     //m_shader->Use();
@@ -217,6 +217,7 @@ void GLFWGraphicsProgram::Render()
     //glDrawArrays(GL_TRIANGLES, 0, 36);
 
     container.Render(lightPos, Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
+    light.Render(lightPos, Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
     // also draw the lamp object
     //lampShader->Use();
     //lampShader->SetMat4("projection", projection, true);
@@ -306,9 +307,15 @@ void GLFWGraphicsProgram::GenerateBuffers()
     //light.GenerateBuffers();*/
 
     //createTextures();
+
+    glGenBuffers(1, &VBO);
+    container.setVBO(VBO);
+    light.setVBO(VBO);
     container.GenerateBuffers();
     container.LoadTexture("./assets/container2.png", 0);
     container.LoadTexture("./assets/container2_specular.png", 1);
+
+    light.GenerateBuffers();
 }
 
 void GLFWGraphicsProgram::framebuffer_size_callback(GLFWwindow* window, int width, int height)

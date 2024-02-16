@@ -28,6 +28,8 @@ public:
 
     bool isTextured = false;
 
+    void setVBO(unsigned int vbo);
+
 private:
     Texture m_diffuse;
     Texture m_specular;
