@@ -9,6 +9,7 @@
 
 #include "Shader.h"
 #include "Texture.h"
+#include "Cube.h" 
 
 // The glad library helps setup OpenGL extensions.
 
@@ -69,6 +70,10 @@ private:
     //texture
     Texture m_texture;
     Texture m_texture2;
+
+    //scene objects
+    Cube container;
+    Cube light;
 
 
 

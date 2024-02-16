@@ -52,6 +52,8 @@ public:
 
     glm::vec3 GetPosition();
 
+    float GetFoV();
+
 private:
 
     Camera(); //Private constructor bc singleton, ensure only one is created
@@ -73,5 +75,7 @@ private:
     float m_movementSpeed;
     float m_mouseSensitivity;
     float m_zoom;
+    //
+    float fov;
 };
 #endif
