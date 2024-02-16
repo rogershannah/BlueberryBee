@@ -45,6 +45,9 @@
     <ClCompile Include="src\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightCaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h">
@@ -66,6 +69,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LightCaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,6 +98,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\basicTextureVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\DirectionalLightFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\DirectionalLightVert.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

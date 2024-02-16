@@ -48,6 +48,19 @@ float verts[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
+glm::vec3 cubePositions[] = {
+    glm::vec3(0.0f,  0.0f,  0.0f),
+    glm::vec3(2.0f,  5.0f, -15.0f),
+    glm::vec3(-1.5f, -2.2f, -2.5f),
+    glm::vec3(-3.8f, -2.0f, -12.3f),
+    glm::vec3(2.4f, -0.4f, -3.5f),
+    glm::vec3(-1.7f,  3.0f, -7.5f),
+    glm::vec3(1.3f, -2.0f, -2.5f),
+    glm::vec3(1.5f,  2.0f, -2.5f),
+    glm::vec3(1.5f,  0.2f, -1.5f),
+    glm::vec3(-1.3f,  1.0f, -1.5f)
+};
+
 //light source location
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
@@ -128,8 +141,8 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
     glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
     glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);*/
 
-    lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-    lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
+    /*lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
+    lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;*/
 
     // render
     //    // ------
@@ -142,7 +155,8 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)720 / (float)720, 0.1f, 100.0f);
     if (isTextured) {
-        m_shader->SetVec3("light.position", lightPos);
+        //m_shader->SetVec3("light.position", lightPos);
+        m_shader->SetVec3("light.direction", -0.2f, -1.0f, -0.3f);
         m_shader->SetVec3("viewPos", vpos);
 
         // light properties
@@ -163,14 +177,24 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
         m_shader->SetMat4("view", view, true);
 
         // world transformation
-        
-        m_shader->SetMat4("model", model, true);
+        //m_shader->SetMat4("model", model, true);
+        for (unsigned int i = 0; i < 10; i++)
+        {
+            model = glm::translate(model, cubePositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            m_shader->SetMat4("model", model, true);
+
+            glBindVertexArray(VAO);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         //// bind diffuse map
         m_diffuse.Bind(0);
         m_specular.Bind(1);
     }
     else {
+        model = glm::mat4(1.0f); //reset model
         m_shader->Use();
         m_shader->SetVec3("objectColor", 1.0f, 1.0f, 1.0f);
         m_shader->SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -179,11 +203,13 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         m_shader->SetMat4("model", model, true);
+
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
     // render the cube
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+   
 
 }
 
