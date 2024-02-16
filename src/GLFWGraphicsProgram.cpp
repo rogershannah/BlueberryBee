@@ -65,7 +65,6 @@ float fov = 45.0f;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
-unsigned int diffuseMap;
 
 //light source location
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
@@ -205,6 +204,7 @@ void GLFWGraphicsProgram::Render()
 
     //// bind diffuse map
     m_texture.Bind(0);
+    m_texture2.Bind(1);
 
     // render the cube
     glBindVertexArray(VAO);
@@ -336,12 +336,16 @@ void GLFWGraphicsProgram::createTextures()
     // load textures (we now use a utility function to keep the code more organized)
     // -----------------------------------------------------------------------------
     std::string path = "./assets/container2.png";
-    diffuseMap = m_texture.LoadTexture(path.c_str());
+    m_texture.LoadTexture(path.c_str());
+    
+    path = "./assets/container2_specular.png";
+    m_texture2.LoadTexture(path.c_str());
 
     // shader configuration
     // --------------------
     m_shader->Use();
     m_shader->SetInt("material.diffuse", 0);
+    m_shader->SetInt("material.specular", 1);
 
 }
 
