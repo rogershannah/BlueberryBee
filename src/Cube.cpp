@@ -160,11 +160,12 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
         m_shader->SetVec3("light.position", vpos); //from camera for flashlight effect
         m_shader->SetVec3("light.direction", Camera::Instance().GetFront());
         m_shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        m_shader->SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         m_shader->SetVec3("viewPos", vpos);
 
         // light properties
-        m_shader->SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        m_shader->SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        m_shader->SetVec3("light.ambient", 0.1f, 0.1f, 0.1f);
+        m_shader->SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         /*m_shader->SetVec3("light.ambient", ambientColor);
         m_shader->SetVec3("light.diffuse", diffuseColor);*/
         m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
