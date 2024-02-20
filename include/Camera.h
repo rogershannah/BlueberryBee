@@ -54,6 +54,8 @@ public:
 
     float GetFoV();
 
+    glm::vec3 GetFront();
+
 private:
 
     Camera(); //Private constructor bc singleton, ensure only one is created

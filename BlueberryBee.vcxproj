@@ -166,6 +166,8 @@
     <None Include="shaders\materialVert.glsl" />
     <None Include="shaders\pointLightFrag.glsl" />
     <None Include="shaders\pointLightVert.glsl" />
+    <None Include="shaders\spotLightFrag.glsl" />
+    <None Include="shaders\spotLightVert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />

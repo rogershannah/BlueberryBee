@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "Camera.h"
 #include <GLFW/glfw3.h>
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -155,8 +156,10 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)720 / (float)720, 0.1f, 100.0f);
     if (isTextured) {
-        m_shader->SetVec3("light.position", lightPos);
-        m_shader->SetVec3("light.direction", -0.2f, -1.0f, -0.3f);
+        //m_shader->SetVec3("light.position", lightPos);
+        m_shader->SetVec3("light.position", vpos); //from camera for flashlight effect
+        m_shader->SetVec3("light.direction", Camera::Instance().GetFront());
+        m_shader->SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
         m_shader->SetVec3("viewPos", vpos);
 
         // light properties
