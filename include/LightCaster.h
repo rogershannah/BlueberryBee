@@ -21,7 +21,6 @@ public:
 
     void Render(glm::vec3 vpos, glm::mat4 view);
 
-
     void Unbind();
 
     bool isTextured = false;

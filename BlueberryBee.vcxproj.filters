@@ -106,6 +106,12 @@
     <None Include="shaders\DirectionalLightVert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\pointLightVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\pointLightFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

@@ -155,7 +155,7 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)720 / (float)720, 0.1f, 100.0f);
     if (isTextured) {
-        //m_shader->SetVec3("light.position", lightPos);
+        m_shader->SetVec3("light.position", lightPos);
         m_shader->SetVec3("light.direction", -0.2f, -1.0f, -0.3f);
         m_shader->SetVec3("viewPos", vpos);
 
@@ -165,6 +165,10 @@ void Cube::Render(glm::vec3 vpos, glm::mat4 view)
         /*m_shader->SetVec3("light.ambient", ambientColor);
         m_shader->SetVec3("light.diffuse", diffuseColor);*/
         m_shader->SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+        m_shader->SetFloat("light.constant", 1.0f);
+        m_shader->SetFloat("light.linear", 0.09f);
+        m_shader->SetFloat("light.quadratic", 0.032f);
 
         // material properties
         m_shader->SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
