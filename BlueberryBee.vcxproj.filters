@@ -118,6 +118,12 @@
     <None Include="shaders\spotLightVert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\multipleLightsFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\multipleLightsVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

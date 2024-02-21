@@ -164,6 +164,8 @@
     <None Include="shaders\lightingVert.glsl" />
     <None Include="shaders\materialFrag.glsl" />
     <None Include="shaders\materialVert.glsl" />
+    <None Include="shaders\multipleLightsFrag.glsl" />
+    <None Include="shaders\multipleLightsVert.glsl" />
     <None Include="shaders\pointLightFrag.glsl" />
     <None Include="shaders\pointLightVert.glsl" />
     <None Include="shaders\spotLightFrag.glsl" />

@@ -157,7 +157,7 @@ bool GLFWGraphicsProgram::InitGL()
     lastX = m_screenWidth / 2.0f;
     lastY = m_screenHeight / 2.0f;
 
-    container.LoadShader("./shaders/spotLightVert.glsl", "./shaders/spotLightFrag.glsl");
+    container.LoadShader("./shaders/multipleLightsVert.glsl", "./shaders/multipleLightsFrag.glsl");
     light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
     container.isTextured = true;
 
