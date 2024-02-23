@@ -157,12 +157,15 @@ bool GLFWGraphicsProgram::InitGL()
     lastX = m_screenWidth / 2.0f;
     lastY = m_screenHeight / 2.0f;
 
-    container.LoadShader("./shaders/multipleLightsVert.glsl", "./shaders/multipleLightsFrag.glsl");
+    /*container.LoadShader("./shaders/multipleLightsVert.glsl", "./shaders/multipleLightsFrag.glsl");
     light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
-    container.isTextured = true;
+    container.isTextured = true;*/
 
+    m_model.Init("./assets/planet.obj");
+    //m_model.Init("./assets/backpack/backpack.obj");
+    m_model.LoadShader("./shaders/modelBasicVert.glsl", "./shaders/modelBasicFrag.glsl");
     // Setup geometry
-    GenerateBuffers();
+   // GenerateBuffers();
 
 
     return success;
@@ -180,8 +183,9 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    container.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
-    light.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
+    /*container.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
+    light.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());*/
+    m_model.Render((float)m_screenWidth, (float)m_screenHeight);
 }
 
 void GLFWGraphicsProgram::Loop()
