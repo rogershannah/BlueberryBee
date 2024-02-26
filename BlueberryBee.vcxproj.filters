@@ -19,6 +19,9 @@
     <Filter Include="assets">
       <UniqueIdentifier>{2caf8f2c-223c-4fe7-bcf9-79a4cda86a53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\backpack">
+      <UniqueIdentifier>{505d968c-21a0-48ac-b904-96f1120bb413}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Downloads\glad (1)\src\glad.c">
@@ -45,7 +48,10 @@
     <ClCompile Include="src\Cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\LightCaster.cpp">
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,7 +77,10 @@
     <ClInclude Include="include\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\LightCaster.h">
+    <ClInclude Include="include\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -124,13 +133,60 @@
     <None Include="shaders\multipleLightsVert.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\modelBasicFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\modelBasicVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="assets\planet.mtl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\backpack\backpack.mtl">
+      <Filter>assets\backpack</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\container.jpg">
-      <Filter>assets</Filter>
-    </Image>
     <Image Include="assets\wall.jpg">
       <Filter>assets</Filter>
     </Image>
+    <Image Include="assets\awesomeface.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\container2.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\container2_specular.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\mars.png">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\matrix.jpg">
+      <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\backpack\ao.jpg">
+      <Filter>assets\backpack</Filter>
+    </Image>
+    <Image Include="assets\backpack\diffuse.jpg">
+      <Filter>assets\backpack</Filter>
+    </Image>
+    <Image Include="assets\backpack\normal.png">
+      <Filter>assets\backpack</Filter>
+    </Image>
+    <Image Include="assets\backpack\roughness.jpg">
+      <Filter>assets\backpack</Filter>
+    </Image>
+    <Image Include="assets\backpack\specular.jpg">
+      <Filter>assets\backpack</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="assets\planet.obj">
+      <Filter>assets</Filter>
+    </Object>
+    <Object Include="assets\backpack\backpack.obj">
+      <Filter>assets\backpack</Filter>
+    </Object>
   </ItemGroup>
 </Project>

@@ -111,9 +111,9 @@ bool GLFWGraphicsProgram::InitGL()
     lastX = m_screenWidth / 2.0f;
     lastY = m_screenHeight / 2.0f;
 
-    container.LoadShader("./shaders/multipleLightsVert.glsl", "./shaders/multipleLightsFrag.glsl");
+    /*container.LoadShader("./shaders/multipleLightsVert.glsl", "./shaders/multipleLightsFrag.glsl");
     light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
-    container.isTextured = true;
+    container.isTextured = true;*/
 
     //m_model.Init("./assets/planet.obj");
     //m_model.Init("./assets/backpack/backpack.obj");
