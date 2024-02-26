@@ -11,6 +11,7 @@
 #include "Texture.h"
 #include "Cube.h" 
 #include <Model.h>
+#include <Plane.h>
 
 // The glad library helps setup OpenGL extensions.
 
@@ -75,6 +76,7 @@ private:
     //scene objects
     Cube container;
     Cube light;
+    Plane woodFloor;
 
     Model m_model;
 

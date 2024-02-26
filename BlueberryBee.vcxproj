@@ -141,6 +141,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
+    <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Transform.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="include\GLFWGraphicsProgram.h" />
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\Model.h" />
+    <ClInclude Include="include\Plane.h" />
     <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\Texture.h" />
@@ -161,6 +163,8 @@
     <None Include="assets\planet.mtl" />
     <None Include="shaders\basicTextureFrag.glsl" />
     <None Include="shaders\basicTextureVert.glsl" />
+    <None Include="shaders\blinnPhongFrag.glsl" />
+    <None Include="shaders\blinnPhongVert.glsl" />
     <None Include="shaders\DirectionalLightFrag.glsl" />
     <None Include="shaders\DirectionalLightVert.glsl" />
     <None Include="shaders\lightingFrag.glsl" />

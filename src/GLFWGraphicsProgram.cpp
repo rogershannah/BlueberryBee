@@ -118,7 +118,9 @@ bool GLFWGraphicsProgram::InitGL()
     //m_model.Init("./assets/planet.obj");
     //m_model.Init("./assets/backpack/backpack.obj");
     //m_model.LoadShader("./shaders/modelBasicVert.glsl", "./shaders/modelBasicFrag.glsl");
-    // 
+   
+
+    woodFloor.LoadShader("./shaders/blinnPhongVert.glsl", "./shaders/blinnPhongFrag.glsl");
     // Setup geometry
    GenerateBuffers();
 
@@ -128,8 +130,9 @@ bool GLFWGraphicsProgram::InitGL()
 
 void GLFWGraphicsProgram::Update()
 {
-    container.Update((float)m_screenWidth, (float)m_screenHeight);
-    light.Update((float)m_screenWidth, (float)m_screenHeight);
+    /*container.Update((float)m_screenWidth, (float)m_screenHeight);
+    light.Update((float)m_screenWidth, (float)m_screenHeight);*/
+    woodFloor.Update((float)m_screenWidth, (float)m_screenHeight);
 }
 
 void GLFWGraphicsProgram::Render()
@@ -139,8 +142,9 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    container.Render();
-    light.Render();
+    /*container.Render();
+    light.Render();*/
+    woodFloor.Render();
     //m_model.Render((float)m_screenWidth, (float)m_screenHeight);
 
 }
@@ -185,14 +189,16 @@ void GLFWGraphicsProgram::GetOpenGLVersionInfo()
 void GLFWGraphicsProgram::GenerateBuffers()
 {
     glGenBuffers(1, &VBO);
-    container.setVBO(VBO);
-    light.setVBO(VBO);
+    woodFloor.setVBO(VBO);
+    woodFloor.GenerateBuffers();
+    woodFloor.LoadTexture("./assets/wood.png", 0);
+    /*light.setVBO(VBO);
     container.GenerateBuffers();
     container.LoadTexture("./assets/container2.png", 0);
     container.LoadTexture("./assets/container2_specular.png", 1);
     container.LoadTexture("./assets/matrix.jpg", 1);
 
-    light.GenerateBuffers();
+    light.GenerateBuffers();*/
 }
 
 void GLFWGraphicsProgram::framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -210,6 +216,17 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+    //blinn
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS && !woodFloor.blinnKeyPressed)
+    {
+        woodFloor.blinn = !woodFloor.blinn;
+        woodFloor.blinnKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_B) == GLFW_RELEASE)
+    {
+        woodFloor.blinn = !woodFloor.blinn;
+        woodFloor.blinnKeyPressed = false;
     }
 
     //navigation via key input
@@ -235,23 +252,25 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
 
 void GLFWGraphicsProgram::createTextures()
 {
-    // load textures (we now use a utility function to keep the code more organized)
-    // -----------------------------------------------------------------------------
-    std::string path = "./assets/container2.png";
-    m_texture.LoadTexture(path.c_str());
-    
-    path = "./assets/container2_specular.png";
-    m_texture2.LoadTexture(path.c_str());
+    //container
+    //// load textures (we now use a utility function to keep the code more organized)
+    //// -----------------------------------------------------------------------------
+    //std::string path = "./assets/container2.png";
+    //m_texture.LoadTexture(path.c_str());
+    //
+    //path = "./assets/container2_specular.png";
+    //m_texture2.LoadTexture(path.c_str());
 
-    // shader configuration
-    // --------------------
-    m_shader->Use();
-    m_shader->SetInt("material.diffuse", 0);
-    m_shader->SetInt("material.specular", 1);
+    //// shader configuration
+    //// --------------------
+    //m_shader->Use();
+    //m_shader->SetInt("material.diffuse", 0);
+    //m_shader->SetInt("material.specular", 1);
 
-    /*container.LoadTexture("./assets/container2.png", 0);
-    container.LoadTexture("./assets/container2_specular.png", 1);*/
+    ///*container.LoadTexture("./assets/container2.png", 0);
+    //container.LoadTexture("./assets/container2_specular.png", 1);*/
 
+    //
     
 
 }
