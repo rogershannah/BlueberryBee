@@ -115,16 +115,12 @@ bool GLFWGraphicsProgram::InitGL()
     light.LoadShader("./shaders/lampVert.glsl", "./shaders/lampFrag.glsl");
     container.isTextured = true;
 
-<<<<<<< Updated upstream
-    // Setup geometry
-    GenerateBuffers();
-=======
     //m_model.Init("./assets/planet.obj");
     //m_model.Init("./assets/backpack/backpack.obj");
     //m_model.LoadShader("./shaders/modelBasicVert.glsl", "./shaders/modelBasicFrag.glsl");
+    // 
     // Setup geometry
    GenerateBuffers();
->>>>>>> Stashed changes
 
 
     return success;
@@ -143,14 +139,10 @@ void GLFWGraphicsProgram::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-<<<<<<< Updated upstream
-    container.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
-    light.Render(Camera::Instance().GetPosition(), Camera::Instance().GetViewMatrix());
-=======
     container.Render();
     light.Render();
     //m_model.Render((float)m_screenWidth, (float)m_screenHeight);
->>>>>>> Stashed changes
+
 }
 
 void GLFWGraphicsProgram::Loop()
