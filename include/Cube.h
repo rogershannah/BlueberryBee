@@ -21,7 +21,9 @@ public:
 
     void GenerateBuffers();
 
-    void Render(glm::vec3 vpos, glm::mat4 view);
+    void Render();
+
+    void Update(float w, float h);
 
 
     void Unbind();
