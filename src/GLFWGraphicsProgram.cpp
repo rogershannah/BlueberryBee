@@ -120,7 +120,7 @@ bool GLFWGraphicsProgram::InitGL()
     //m_model.LoadShader("./shaders/modelBasicVert.glsl", "./shaders/modelBasicFrag.glsl");
    
 
-    woodFloor.LoadShader("./shaders/blinnPhongVert.glsl", "./shaders/blinnPhongFrag.glsl");
+    woodFloor.LoadShader("./shaders/normalMappingVert.glsl", "./shaders/normalMappingFrag.glsl");
     // Setup geometry
    GenerateBuffers();
 
@@ -190,8 +190,10 @@ void GLFWGraphicsProgram::GenerateBuffers()
 {
     glGenBuffers(1, &VBO);
     woodFloor.setVBO(VBO);
-    woodFloor.GenerateBuffers();
-    woodFloor.LoadTexture("./assets/wood.png", 0);
+   // woodFloor.GenerateBuffers();
+    woodFloor.LoadTexture("./assets/normal/brickwall.jpg",  0);
+    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg",  1);
+    //woodFloor.LoadTexture("./assets/wood.png",  0);
     /*light.setVBO(VBO);
     container.GenerateBuffers();
     container.LoadTexture("./assets/container2.png", 0);
@@ -225,7 +227,6 @@ void GLFWGraphicsProgram::processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_B) == GLFW_RELEASE)
     {
-        woodFloor.blinn = !woodFloor.blinn;
         woodFloor.blinnKeyPressed = false;
     }
 

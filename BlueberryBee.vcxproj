@@ -177,6 +177,8 @@
     <None Include="shaders\modelBasicVert.glsl" />
     <None Include="shaders\multipleLightsFrag.glsl" />
     <None Include="shaders\multipleLightsVert.glsl" />
+    <None Include="shaders\normalMappingFrag.glsl" />
+    <None Include="shaders\normalMappingVert.glsl" />
     <None Include="shaders\pointLightFrag.glsl" />
     <None Include="shaders\pointLightVert.glsl" />
     <None Include="shaders\spotLightFrag.glsl" />

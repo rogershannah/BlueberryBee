@@ -54,6 +54,9 @@
     <ClCompile Include="src\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,6 +150,18 @@
     </None>
     <None Include="assets\backpack\backpack.mtl">
       <Filter>assets\backpack</Filter>
+    </None>
+    <None Include="shaders\blinnPhongFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\blinnPhongVert.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\normalMappingFrag.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\normalMappingVert.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -7,14 +7,14 @@ in VS_OUT {
     vec2 TexCoords;
 } fs_in;
 
-uniform sampler2D floorTexture;
+uniform sampler2D diffuseMap;
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform bool blinn;
 
 void main()
 {           
-    vec3 color = texture(floorTexture, fs_in.TexCoords).rgb;
+    vec3 color = texture(diffuseMap, fs_in.TexCoords).rgb;
     // ambient
     vec3 ambient = 0.05 * color;
     // diffuse
