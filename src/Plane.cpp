@@ -35,36 +35,45 @@ void Plane::LoadTexture(std::string fileName, unsigned int slot)
         m_diffuse.LoadTexture(fileName);
         m_shader->Use();
         m_shader->SetInt("diffuseMap", 0);
+        std::cout << "diff id " << m_diffuse.GetID() << std::endl;
     case 1:
         m_normal.LoadTexture(fileName);
         m_shader->Use();
         m_shader->SetInt("normalMap", 1);
+        std::cout << "norm id " << m_normal.GetID() << std::endl;
     /*case 2:
         m_emission.LoadTexture(fileName);
         m_shader->Use();
         m_shader->SetInt("material.emission", 2);*/
     }
+    std::cout << fileName << " slot " << slot << std::endl;
 
 }
 
 void Plane::LoadTexture(std::string fileName, std::string map, unsigned int slot)
 {
-    Texture t;
-    t.LoadTexture(fileName);
-    if (textureVect.size() == slot) {
-        textureVect.push_back(t);
-        std::cout << "pushback" << std::endl;
+     if (map == "diffuseMap") {
+        m_diffuse.LoadTexture(fileName);
+        std::cout << "diff id " << m_normal.GetID() << std::endl;
+    } else if (map == "specularMap") {
+        m_specular.LoadTexture(fileName);
+        std::cout << "m_specular id " << m_specular.GetID() << std::endl;
     }
-    else if (textureVect.size() > slot) {
-        textureVect.at(slot) = t;
-        std::cout << "pushback" << std::endl;
+    else if (map == "emissiveMap") {
+        m_emissive.LoadTexture(fileName);
+      /*  m_shader->Use();
+        m_shader->SetInt("specularMap", textureCount);*/
+        std::cout << "m_emissive id " << m_emissive.GetID() << std::endl;
     }
-    
-    if (textureVect.size() >= slot ) {
-        m_shader->Use();
-        m_shader->SetInt(map, slot);
+    else if (map == "normalMap") {
+        m_normal.LoadTexture(fileName);
+        std::cout << "norm id " << m_normal.GetID() << std::endl;
     }
-
+     textureMap[map] = slot;
+     m_shader->Use();
+     m_shader->SetInt(map, slot);
+    textureCount++;
+    std::cout << "textureCount " << textureCount << std::endl;
 }
 
 void Plane::GenerateBuffers()
@@ -90,11 +99,29 @@ void Plane::Render()
 {
     m_shader->Use();
 
-   /* for (int i = 0; i < textureVect.size(); i++) {
+  /* for (int i = 0; i < textureVect.size(); i++) {
         textureVect.at(i).Bind(i);
     }*/
-    m_diffuse.Bind(0);
-    m_normal.Bind(1);
+
+
+    std::map<std::string, unsigned int>::iterator it = textureMap.begin();
+
+    // Iterate through the map and print the elements
+    while (it != textureMap.end()) {
+        if (it->first == "diffuseMap") {
+            m_diffuse.Bind(it->second);
+        }
+        else if (it->first == "specularMap") {
+            m_specular.Bind(it->second);
+        }
+        else if (it->first == "emissiveMap") {
+            m_emissive.Bind(it->second);
+        }
+        else if (it->first == "normalMap") {
+            m_normal.Bind(it->second);
+        }
+        ++it;
+    }
 
     //glBindVertexArray(VAO);
 

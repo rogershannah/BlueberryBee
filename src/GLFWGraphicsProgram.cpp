@@ -191,8 +191,11 @@ void GLFWGraphicsProgram::GenerateBuffers()
     glGenBuffers(1, &VBO);
     woodFloor.setVBO(VBO);
    // woodFloor.GenerateBuffers();
-    woodFloor.LoadTexture("./assets/normal/brickwall.jpg",  0);
-    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg",  1);
+    /*woodFloor.LoadTexture("./assets/normal/brickwall.jpg",  0);
+    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg",  1);*/
+
+    woodFloor.LoadTexture("./assets/normal/brickwall.jpg", "diffuseMap",  0);
+    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg", "normalMap", 1);
     //woodFloor.LoadTexture("./assets/wood.png",  0);
     /*light.setVBO(VBO);
     container.GenerateBuffers();

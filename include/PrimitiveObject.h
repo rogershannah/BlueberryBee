@@ -1,6 +1,6 @@
 #pragma once
-#ifndef PLANE_H
-#define PLANE_H
+#ifndef PRIMITIVEOBJECT_H
+#define PRIMITIVEOBJECT_H
 
 #include <Texture.h>
 #include <Shader.h>
@@ -8,19 +8,19 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
-#include <map>
 
-class Plane
+class PrimitiveObject
 {
 public:
 
     // constructor 
-    Plane();
-    ~Plane();
+    PrimitiveObject();
+    ~PrimitiveObject();
+
+
     void LoadShader(std::string vertex, std::string fragment);
 
-    void LoadTexture(std::string fileName, unsigned int slot);
-    void LoadTexture(std::string fileName,std::string map, unsigned int slot);
+    void LoadTexture(std::string fileName, std::string map, unsigned int slot);
 
     void GenerateBuffers();
 
@@ -35,18 +35,8 @@ public:
     void setVBO(unsigned int vbo);
 
 
-    //settings
-    bool blinn = false;
-    bool blinnKeyPressed = false;
-
 private:
-    Texture m_diffuse;
-    Texture m_specular;
-    Texture m_emissive;
-    Texture m_normal;
-    unsigned int textureCount = 0;
     std::vector<Texture> textureVect;
-    std::map<std::string, unsigned int> textureMap;
     // buffer ogjects
     unsigned int VBO, VAO, EBO;
     Shader* m_shader;
