@@ -61,8 +61,6 @@ void Plane::LoadTexture(std::string fileName, std::string map, unsigned int slot
     }
     else if (map == "emissiveMap") {
         m_emissive.LoadTexture(fileName);
-      /*  m_shader->Use();
-        m_shader->SetInt("specularMap", textureCount);*/
         std::cout << "m_emissive id " << m_emissive.GetID() << std::endl;
     }
     else if (map == "normalMap") {
@@ -72,8 +70,6 @@ void Plane::LoadTexture(std::string fileName, std::string map, unsigned int slot
      textureMap[map] = slot;
      m_shader->Use();
      m_shader->SetInt(map, slot);
-    textureCount++;
-    std::cout << "textureCount " << textureCount << std::endl;
 }
 
 void Plane::GenerateBuffers()
@@ -99,11 +95,6 @@ void Plane::Render()
 {
     m_shader->Use();
 
-  /* for (int i = 0; i < textureVect.size(); i++) {
-        textureVect.at(i).Bind(i);
-    }*/
-
-
     std::map<std::string, unsigned int>::iterator it = textureMap.begin();
 
     // Iterate through the map and print the elements
@@ -122,12 +113,6 @@ void Plane::Render()
         }
         ++it;
     }
-
-    //glBindVertexArray(VAO);
-
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
-
-
     renderQuad();
 
 }

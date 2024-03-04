@@ -25,7 +25,7 @@ void main()
     // get diffuse color
     vec3 color = texture(diffuseMap, fs_in.TexCoords).rgb;
     // ambient
-    vec3 ambient = 0.1 * color;
+    vec3 ambient = 0.5 * color;
     // diffuse
     vec3 lightDir = normalize(fs_in.TangentLightPos - fs_in.TangentFragPos);
     float diff = max(dot(lightDir, normal), 0.0);
@@ -37,5 +37,7 @@ void main()
     float spec = pow(max(dot(normal, halfwayDir), 0.0), 32.0);
 
     vec3 specular = vec3(0.2) * spec;
-    FragColor = vec4(ambient + diffuse + specular, 1.0);
+    vec3 result = ambient + diffuse + specular;
+    //result += CalcFlashight(spotLight, normal, FragPos, viewDir);    
+    FragColor = vec4(result, 1.0);
 }

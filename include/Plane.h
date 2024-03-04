@@ -44,8 +44,6 @@ private:
     Texture m_specular;
     Texture m_emissive;
     Texture m_normal;
-    unsigned int textureCount = 0;
-    std::vector<Texture> textureVect;
     std::map<std::string, unsigned int> textureMap;
     // buffer ogjects
     unsigned int VBO, VAO, EBO;
