@@ -36,6 +36,19 @@ void Model::Render(float w, float h)
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
     model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
     m_shader->SetMat4("model", model, true);
+
+    // spotLight
+    m_shader->SetVec3("spotLight.position", Camera::Instance().GetPosition());
+    m_shader->SetVec3("spotLight.direction", Camera::Instance().GetFront());
+    m_shader->SetVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+    m_shader->SetVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+    m_shader->SetVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+    m_shader->SetFloat("spotLight.constant", 1.0f);
+    m_shader->SetFloat("spotLight.linear", 0.09f);
+    m_shader->SetFloat("spotLight.quadratic", 0.032f);
+    m_shader->SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    m_shader->SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+
     draw();
 }
 
