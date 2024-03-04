@@ -23,6 +23,7 @@ void Mesh::Draw(Shader& shader)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
+    unsigned int normalNr = 1;
     for (unsigned int i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
@@ -33,6 +34,8 @@ void Mesh::Draw(Shader& shader)
             number = std::to_string(diffuseNr++);
         else if (name == "texture_specular")
             number = std::to_string(specularNr++);
+        else if (name == "texture_normal")
+            number = std::to_string(normalNr++); // transfer unsigned int to string
 
         shader.SetInt(("material." + name + number).c_str(), i);
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
@@ -69,6 +72,11 @@ void Mesh::setupMesh()
     // vertex texture coords
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, TexCoords));
-
+    // vertex tangent
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, Tangent));
+    // vertex bitangent
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, Bitangent));
     glBindVertexArray(0);
 }

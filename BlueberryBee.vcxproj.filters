@@ -60,6 +60,9 @@
     <ClCompile Include="src\PrimitiveObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PrimitiveGeometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFWGraphicsProgram.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PrimitiveObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrimitiveGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -154,9 +160,6 @@
     <None Include="assets\planet.mtl">
       <Filter>assets</Filter>
     </None>
-    <None Include="assets\backpack\backpack.mtl">
-      <Filter>assets\backpack</Filter>
-    </None>
     <None Include="shaders\blinnPhongFrag.glsl">
       <Filter>Shaders</Filter>
     </None>
@@ -168,6 +171,9 @@
     </None>
     <None Include="shaders\normalMappingVert.glsl">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="assets\backpack\backpack.mtl">
+      <Filter>assets\backpack</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

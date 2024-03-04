@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <map>
 
 class PrimitiveObject
 {
@@ -36,7 +37,11 @@ public:
 
 
 private:
-    std::vector<Texture> textureVect;
+    Texture m_diffuse;
+    Texture m_specular;
+    Texture m_emissive;
+    Texture m_normal;
+    std::map<std::string, unsigned int> textureMap;
     // buffer ogjects
     unsigned int VBO, VAO, EBO;
     Shader* m_shader;

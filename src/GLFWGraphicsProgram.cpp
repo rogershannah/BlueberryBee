@@ -116,13 +116,14 @@ bool GLFWGraphicsProgram::InitGL()
     container.isTextured = true;*/
 
     //m_model.Init("./assets/planet.obj");
-    //m_model.Init("./assets/backpack/backpack.obj");
+    m_model.Init("./assets/cyborg/cyborg.obj");
     //m_model.LoadShader("./shaders/modelBasicVert.glsl", "./shaders/modelBasicFrag.glsl");
+    m_model.LoadShader("./shaders/normalMappingVert.glsl", "./shaders/normalMappingFrag.glsl");
    
 
-    woodFloor.LoadShader("./shaders/normalMappingVert.glsl", "./shaders/normalMappingFrag.glsl");
+    //woodFloor.LoadShader("./shaders/normalMappingVert.glsl", "./shaders/normalMappingFrag.glsl");
     // Setup geometry
-   GenerateBuffers();
+  // GenerateBuffers();
 
 
     return success;
@@ -132,7 +133,7 @@ void GLFWGraphicsProgram::Update()
 {
     /*container.Update((float)m_screenWidth, (float)m_screenHeight);
     light.Update((float)m_screenWidth, (float)m_screenHeight);*/
-    woodFloor.Update((float)m_screenWidth, (float)m_screenHeight);
+    //woodFloor.Update((float)m_screenWidth, (float)m_screenHeight);
 }
 
 void GLFWGraphicsProgram::Render()
@@ -144,8 +145,8 @@ void GLFWGraphicsProgram::Render()
 
     /*container.Render();
     light.Render();*/
-    woodFloor.Render();
-    //m_model.Render((float)m_screenWidth, (float)m_screenHeight);
+    //woodFloor.Render();
+    m_model.Render((float)m_screenWidth, (float)m_screenHeight);
 
 }
 
@@ -188,14 +189,14 @@ void GLFWGraphicsProgram::GetOpenGLVersionInfo()
 
 void GLFWGraphicsProgram::GenerateBuffers()
 {
-    glGenBuffers(1, &VBO);
-    woodFloor.setVBO(VBO);
-   // woodFloor.GenerateBuffers();
-    /*woodFloor.LoadTexture("./assets/normal/brickwall.jpg",  0);
-    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg",  1);*/
+   // glGenBuffers(1, &VBO);
+   // woodFloor.setVBO(VBO);
+   //// woodFloor.GenerateBuffers();
+   // /*woodFloor.LoadTexture("./assets/normal/brickwall.jpg",  0);
+   // woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg",  1);*/
 
-    woodFloor.LoadTexture("./assets/normal/brickwall.jpg", "diffuseMap",  0);
-    woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg", "normalMap", 1);
+   // woodFloor.LoadTexture("./assets/normal/brickwall.jpg", "diffuseMap",  0);
+   // woodFloor.LoadTexture("./assets/normal/brickwall_normal.jpg", "normalMap", 1);
     //woodFloor.LoadTexture("./assets/wood.png",  0);
     /*light.setVBO(VBO);
     container.GenerateBuffers();
